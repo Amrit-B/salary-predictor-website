@@ -61,7 +61,7 @@
     </main>
 
     <script>
-// Formula
+        // --- Your Model's Formula Goes Here! ---
         const MODEL_SLOPE = 9345.94244312237;      
         const MODEL_INTERCEPT = 26816.19224403119; 
 
@@ -79,10 +79,16 @@
 
             // 1. Get the user's input
             const experience = parseFloat(experienceInput.value);
+            
+            // Clear previous messages
+            messageElement.textContent = '';
 
             // 2. Validate the input
             if (isNaN(experience) || experience < 0) {
-                alert('Please enter a valid number of years.');
+                // BUG FIX: Replaced the original alert() with a more user-friendly message that displays directly on the page.
+                resultElement.textContent = 'Invalid Input';
+                messageElement.textContent = 'Please enter a valid number of years.';
+                resultContainer.classList.remove('hidden');
                 return;
             }
 
@@ -96,7 +102,8 @@
             });
             
             resultElement.textContent = formattedSalary;
-                        // 5. NEW: Add conditional messages based on experience
+
+            // 5. Add conditional messages based on experience
             if (experience > 40) {
                 messageElement.textContent = 'Are you immortal?!';
             } else if (experience > 10) {
@@ -106,7 +113,8 @@
             } else {
                 messageElement.textContent = 'You are getting started at a junior level!';
             }
-            resultContainer.classList.remove('hidden'); // Show the result
+            
+            resultContainer.classList.remove('hidden'); // Show the result area
         });
     </script>
 </body>
