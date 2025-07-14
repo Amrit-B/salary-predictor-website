@@ -55,6 +55,7 @@
         <div id="result-container" class="mt-8 text-center hidden">
             <p class="text-slate-600">Predicted Annual Salary:</p>
             <p id="result" class="text-4xl font-bold text-blue-600 mt-2"></p>
+            <p id="message" class="text-slate-500 mt-4 text-md font-medium"></p>
         </div>
 
     </main>
@@ -69,6 +70,7 @@
         const experienceInput = document.getElementById('experience');
         const resultContainer = document.getElementById('result-container');
         const resultElement = document.getElementById('result');
+        const messageElement = document.getElementById('message');
 
         // Listen for when the user submits the form
         predictionForm.addEventListener('submit', function(event) {
