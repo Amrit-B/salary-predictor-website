@@ -94,6 +94,16 @@
             });
             
             resultElement.textContent = formattedSalary;
+                        // 5. NEW: Add conditional messages based on experience
+            if (experience > 40) {
+                messageElement.textContent = 'Are you immortal?!';
+            } else if (experience > 10) {
+                messageElement.textContent = 'You are a senior!';
+            } else if (experience > 2) {
+                messageElement.textContent = 'You are at a mid-level in your career!';
+            } else {
+                messageElement.textContent = 'You are getting started at a junior level!';
+            }
             resultContainer.classList.remove('hidden'); // Show the result
         });
     </script>
