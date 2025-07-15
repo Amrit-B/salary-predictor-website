@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salary Predictor</title>
+    <title>Salary Predictor with AI Insights</title>
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts for a nice font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        /* Use the Inter font family */
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
+    
+    <!-- Link to your external CSS file -->
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-slate-100 flex items-center justify-center min-h-screen">
+<body class="bg-gradient-to-br from-sky-100 to-indigo-200 flex items-center justify-center min-h-screen py-12">
 
     <main class="bg-white w-full max-w-md mx-4 p-8 rounded-xl shadow-lg">
         
@@ -56,66 +53,25 @@
             <p class="text-slate-600">Predicted Annual Salary:</p>
             <p id="result" class="text-4xl font-bold text-blue-600 mt-2"></p>
             <p id="message" class="text-slate-500 mt-4 text-md font-medium"></p>
+            
+            <!-- Gemini Feature Button -->
+            <div id="gemini-button-container" class="mt-6 hidden">
+                 <button id="gemini-button" class="w-full bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                    ✨ Get Career Insights
+                </button>
+            </div>
+        </div>
+        
+        <!-- Gemini AI Insights Display Area -->
+        <div id="gemini-insights-container" class="mt-8 hidden">
+            <h2 class="text-xl font-bold text-slate-700 text-center mb-4">✨ AI Career Insights</h2>
+            <div id="loader" class="loader hidden"></div>
+            <div id="gemini-result" class="bg-slate-50 p-4 rounded-lg text-slate-700 whitespace-pre-wrap text-sm"></div>
         </div>
 
     </main>
 
-    <script>
-        // --- Your Model's Formula Goes Here! ---
-        const MODEL_SLOPE = 9345.94244312237;      
-        const MODEL_INTERCEPT = 26816.19224403119; 
-
-        // Get references to the HTML elements we need to interact with
-        const predictionForm = document.getElementById('prediction-form');
-        const experienceInput = document.getElementById('experience');
-        const resultContainer = document.getElementById('result-container');
-        const resultElement = document.getElementById('result');
-        const messageElement = document.getElementById('message');
-
-        // Listen for when the user submits the form
-        predictionForm.addEventListener('submit', function(event) {
-            // Prevent the form from reloading the page
-            event.preventDefault();
-
-            // 1. Get the user's input
-            const experience = parseFloat(experienceInput.value);
-            
-            // Clear previous messages
-            messageElement.textContent = '';
-
-            // 2. Validate the input
-            if (isNaN(experience) || experience < 0) {
-                // BUG FIX: Replaced the original alert() with a more user-friendly message that displays directly on the page.
-                resultElement.textContent = 'Invalid Input';
-                messageElement.textContent = 'Please enter a valid number of years.';
-                resultContainer.classList.remove('hidden');
-                return;
-            }
-
-            // 3. Apply the model's formula
-            const predictedSalary = (MODEL_SLOPE * experience) + MODEL_INTERCEPT;
-
-            // 4. Format and display the result
-            const formattedSalary = '$' + predictedSalary.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
-            
-            resultElement.textContent = formattedSalary;
-
-            // 5. Add conditional messages based on experience
-            if (experience > 40) {
-                messageElement.textContent = 'Are you immortal?!';
-            } else if (experience > 10) {
-                messageElement.textContent = 'You are a senior!';
-            } else if (experience > 2) {
-                messageElement.textContent = 'You are at a mid-level in your career!';
-            } else {
-                messageElement.textContent = 'You are getting started at a junior level!';
-            }
-            
-            resultContainer.classList.remove('hidden'); // Show the result area
-        });
-    </script>
+    <!-- UPDATE: Added type="module" to allow for JS imports/exports -->
+    <script type="module" src="script.js" defer></script>
 </body>
 </html>
