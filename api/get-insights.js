@@ -20,9 +20,8 @@ export default async function handler(request, response) {
 
     let prompt;
 
-    // --- NEW: Conditional Prompt Logic ---
     // Check if the experience level is beyond the human norm.
-    if (experience > 40) {
+    if (experience > 50) {
       // If so, create a fun, creative prompt for an "immortal" being.
       prompt = `You are a witty and imaginative career advisor for mythical beings. A timeless, immortal entity with ${experience} years of "professional experience" has a predicted salary of ${salary}. They are clearly bored and looking for a new challenge. Provide some brief, humorous career insights. Include the following sections with markdown formatting:
     
