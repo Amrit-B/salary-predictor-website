@@ -1,6 +1,6 @@
 
-const MODEL_SLOPE = 9345.94244312237;      
-const MODEL_INTERCEPT = 26816.19224403119; 
+const MODEL_SLOPE = 11481.4007555;      
+const MODEL_INTERCEPT = 64790.6934339; 
 
 // Get references to all HTML elements
 const predictionForm = document.getElementById('prediction-form');
