@@ -1,7 +1,4 @@
-// Import the AI function from our new module
-import { fetchCareerInsights } from './gemini-insights.js';
 
-// --- Your Model's Formula Goes Here! ---
 const MODEL_SLOPE = 9345.94244312237;      
 const MODEL_INTERCEPT = 26816.19224403119; 
 
@@ -75,13 +72,30 @@ geminiButton.addEventListener('click', async function() {
     geminiButton.disabled = true;
 
     try {
-        // Call the imported function to get insights
-        const insightsText = await fetchCareerInsights(lastExperience, lastFormattedSalary);
-        geminiResult.textContent = insightsText;
+        // UPDATE: This is the new part. We are now calling OUR OWN API endpoint.
+        const response = await fetch('/api/get-insights', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                experience: lastExperience,
+                salary: lastFormattedSalary,
+            }),
+        });
+
+        if (!response.ok) {
+            // If our own serverless function returns an error, we'll show it.
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'The server responded with an error.');
+        }
+
+        const data = await response.json();
+        geminiResult.textContent = data.insights;
 
     } catch (error) {
-        console.error("Error fetching Gemini insights:", error);
-        geminiResult.textContent = "Sorry, something went wrong while fetching career insights. Please try again later.";
+        console.error("Error fetching insights:", error);
+        geminiResult.textContent = `Sorry, an error occurred: ${error.message}`;
     } finally {
         // Hide loader and re-enable button regardless of success or failure
         loader.classList.add('hidden');
